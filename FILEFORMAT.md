@@ -53,6 +53,7 @@ Colors depth and mask values correspond to 16bppRGB565 encoding algorithm.
   - byte 33, blue color depth, seems to be always 8
   - byte 34-44, not used
 
+### byte 45-64
 Algorithm used for encoding 8-bit files – 8bppIndexed with 24-bit palette for 256 colors.
 - byte 45, color depth, number of bits for one pixel (8 for 8-bit files and 16 for 16-bit files)
 - byte 46-49, size of Application Data in bytes, only for animated files this is higher than 0  
@@ -63,15 +64,22 @@ There is a possibility that there are STCI file where byte 46-48 are not used, w
 This could maybe depend on localization. In .NET StiEditor such byte order is used.
 
 ## Image data
-In 16-bit files after header and to the end of file there are image data encoded in 16bppRGB565 format.
-In 8-bit files after header there are 256*3 = 768 bytes of palette.
-After palette there are image headers of total size (number of images) x 16 bytes.
+
+### 16-bit
+In 16-bit files there is image data encoded in 16bppRGB565 format starting after header to the end of file.
+
+### 8-bit
+8-bit files have the following structure
+- 64 bytes header
+- 768 bytes palette (256*3 = 768 bytes of palette)
+- image headers of total size (number of images) x 16 bytes
+- image data at offset header byte 1-4 with the amount of bytes as found in byte 5-8 of the image headers
 
 ### Image header (16 bytes, STCISubImage structure).
 STCISubImage structure is described in Standard Gaming Platform\imgfmt.h.
 
-- byte 1-4, shift in bytes from the beginning of images data to beginning of the current image data. 0 for the first image.  
-  Size in bytes of the first (previous) image for the second and so on.
+- byte 1-4, shift in bytes from the beginning of the previous image data to beginning of the current image data  
+  0 for the first image, size in bytes of the first (previous) image for the second and so on.
 - byte 5-8, image data size in bytes.
 - byte 9-10, horizontal image shift in pixels.
 - byte 11-12, vertical image shift in pixels.
@@ -87,12 +95,12 @@ Non-animated 8-bit files are finished here.
 Animated files have additional Application Data. Size – (number of images) x 16
 with the following content:
 - images which are the first of a new direction:
-  - byte 1-8, value 0, unknown purpose.
-  - byte 9, equals to number of images in current direction.
-  - byte 10, value 2, unknown purpose.
-  - byte 11-16, value 0, unknown purpose.
+  - byte 1-8, value 0, unknown purpose
+  - byte 9, equals to number of images in current direction
+  - byte 10, value 2, unknown purpose
+  - byte 11-16, value 0, unknown purpose
 - images which are not the beginning of a new direction:
-  - bytes 1-16, value 0, unknown purpose.
+  - bytes 1-16, value 0, unknown purpose
 
 # ETRLE compression algorithm.
 ETRLE abbreviation meaning is unknown. Last three letters most likely mean Run-Length Encoding.  
