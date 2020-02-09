@@ -9,7 +9,7 @@ A 16-bit file holds just one noncompressed image, most of these are located in t
 ## Header (64 bytes, STCIHeader structure)
 STCIHeader structure is described in Standard Gaming Platform\imgfmt.h
 
-### header (20 bytes)
+### header (24 bytes)
 - byte 1-4, character string “STCI”, the format identifier
 - byte 5-8, initial size of the image in bytes, For files with multiple images this is a large senseless number
 - byte 9-12, image size in bytes after compression
