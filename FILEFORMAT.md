@@ -66,7 +66,7 @@ This could maybe depend on localization. In .NET StiEditor such byte order is us
 ## Image data
 
 ### 16-bit
-In 16-bit files there is image data encoded in 16bppRGB565 format starting after header to the end of file.
+In 16-bit files there is image data encoded in 16bppRGB565 format starting after the 64 byte header to the end of file.
 
 ### 8-bit
 8-bit files have the following structure
