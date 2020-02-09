@@ -2,7 +2,7 @@ This is a try at turning the original STI format documentation into something re
 Original can be found at http://ja2v113.pbworks.com/w/page/4218367/STCI%20%28STI%29%20format%20description
 
 # STСI (Sir-Tech's Crazy Image) file format.
-The STСI format is used to store graphical objects of Jagged Alliance 2 game.  
+The STСI format is used to store graphical objects of Jagged Alliance 2.  
 Every STCI file can hold one or more images, images are stored using either a 16-bit (16bppRGB565) or 8-bit (8bppIndexed) format.  
 A 16-bit file holds just one noncompressed image, most of these are located in the LOADSCREENS folder.
 
@@ -76,15 +76,15 @@ In 16-bit files there is image data encoded in 16bppRGB565 format starting after
 - image data at offset header byte 1-4 with the amount of bytes as found in byte 5-8 of the image headers
 
 ### Image header (16 bytes, STCISubImage structure).
-STCISubImage structure is described in Standard Gaming Platform\imgfmt.h.
+STCISubImage structure is described in Standard Gaming Platform\imgfmt.h
 
 - byte 1-4, shift in bytes from the beginning of the previous image data to beginning of the current image data  
-  0 for the first image, size in bytes of the first (previous) image for the second and so on.
-- byte 5-8, image data size in bytes.
-- byte 9-10, horizontal image shift in pixels.
-- byte 11-12, vertical image shift in pixels.
-- byte 13-14, image height in pixels.
-- byte 15-16, image width in pixels.
+  0 for the first image, size in bytes of the first (previous) image for the second and so on
+- byte 5-8, image data size in bytes
+- byte 9-10, horizontal image shift in pixels
+- byte 11-12, vertical image shift in pixels
+- byte 13-14, image height in pixels
+- byte 15-16, image width in pixels
 
 There is image data after each image header.  
 Every byte corresponds to ordinal number (index) of pixel’s color in the palette.  
