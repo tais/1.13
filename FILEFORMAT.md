@@ -75,7 +75,7 @@ In 16-bit files there is image data encoded in 16bppRGB565 format starting after
 - image headers of total size (number of images) x 16 bytes
 - image data at offset header byte 1-4 with the amount of bytes as found in byte 5-8 of the image headers
 
-### Image header (16 bytes, STCISubImage structure).
+### Image header (16 bytes, STCISubImage structure) [8-bit format]
 STCISubImage structure is described in Standard Gaming Platform\imgfmt.h
 
 - byte 1-4, shift in bytes from the beginning of the previous image data to beginning of the current image data  
@@ -86,10 +86,10 @@ STCISubImage structure is described in Standard Gaming Platform\imgfmt.h
 - byte 13-14, image height in pixels
 - byte 15-16, image width in pixels
 
-There is image data after each image header.  
-Every byte corresponds to ordinal number (index) of pixel’s color in the palette.  
-Image data are compressed using ETRLE compression algorithm (see below), it seems that ZLIB compression is not used.  
-Non-animated 8-bit files are finished here.
+### Image data [8-bit format]
+After the image headers comes the image data.  
+Image data is compressed using ETRLE compression algorithm (see below), it seems that ZLIB compression is not used.  
+Non-animated 8-bit files are finished after this.
 
 ### Animated files
 Animated files have additional Application Data. Size – (number of images) x 16
